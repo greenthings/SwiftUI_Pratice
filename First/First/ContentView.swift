@@ -12,23 +12,29 @@ struct ContentView: View {
     var body: some View {
         VStack{
             
-            Text("Hello World")
-                .font(.largeTitle)
-                .border(Color.black)
+            GeometryReader { geometry in
+                HStack(spacing: 0){
+                    Text("Hello World with frame1")
+                        .font(.largeTitle)
+                        .frame(width: geometry.size.width/2, height: geometry.size.height, alignment: .center)
+                        .border(Color.black)
+                    
+                    Text("Hello World with frame2")
+                        .font(.largeTitle)
+                        .frame(width: geometry.size.width/3, height: geometry.size.height, alignment: .center)
+                        .border(Color.black)
+                }
+                
+                
+            }
+      
             
             Text("Hello World with frame")
                 .font(.largeTitle)
-                .frame(width: 200, height: 200, alignment: .center)
-                .border(Color.black)
-            
-            Text("Hello World with frame")
-                .font(.largeTitle)
-                .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight:.infinity,alignment: .center)
+                .frame(minWidth: 0, maxWidth: 200, minHeight: 0, maxHeight: 200,alignment: .center)
                 .border(Color.black)
                 
         }
-        .edgesIgnoringSafeArea(.bottom)
-            
     }
 }
 
