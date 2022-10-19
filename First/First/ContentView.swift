@@ -9,42 +9,77 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @State private var wifiEnabled1 = true
-    @State private var userName = ""
+    @State private var rotation: Double = 0.0
+    @State private var text: String = "Welcome to SwiftUI, Neo"
     
+    @State private var pic: Bool = false
+    
+    
+    var colors: [Color] = [.black,.red,.green,.blue]
+    
+    var colornames: [String] = ["Black","RED", "GREEN","BLUE"]
+    
+    @State private var colorIndex = 0
+
     var body: some View {
-        VStack(alignment: .center){
-       
-  
+        VStack{
+            Spacer()
+            Text("Hello world!")
+                .frame(width: 300, height: 200)
+                .font(.largeTitle)
+                .fontWeight(.heavy)
+                .rotationEffect(.degrees(self.rotation))
+        
+                .foregroundColor(self.colors[self.colorIndex])
+                .animation(.easeInOut(duration: 5), value: self.rotation)
+            Spacer()
+            Divider()
+            Slider(value: $rotation, in: 0...360, step: 0.1)
+                .padding()
             
-            TextField("Input user name", text: $userName)
+            TextField("Enter text here", text: $text)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .padding()
             
-            Label(userName, systemImage: "6.circle")
-
-            Text(userName)
-            
-            Toggle(isOn: $wifiEnabled1) {
-                Text("Enabled Wifi")
+            Form{
+                // self.colors[$0]
+                Picker(selection: $colorIndex) {
+                    ForEach(0..<colornames.count, id: \.self){
+                        Text(self.colornames[$0])
+                            .foregroundColor(self.colors[self.colorIndex])
+                    }
+                    
+                }label: {
+                    Text("Color")  .foregroundColor(self.colors[self.colorIndex])
+                }
+                VStack(alignment: .center){
+                    Image(pic ? "ned" : "neo")
+                        .rotationEffect(.degrees(self.rotation))
+                        .frame(width: 300)
+                        .border(colors[colorIndex])
+                }
+                
+                Button("Neo is Ned?") {
+                    pic.toggle()
+                }
+                
+                AsyncImage(url: URL(string: "https://prodimage.images-bn.com/lf?set=key%5Bresolve.pixelRatio%5D,value%5B1%5D&set=key%5Bresolve.width%5D,value%5B300%5D&set=key%5Bresolve.height%5D,value%5B10000%5D&set=key%5Bresolve.imageFit%5D,value%5Bcontainerwidth%5D&set=key%5Bresolve.allowImageUpscaling%5D,value%5B0%5D&set=key%5Bresolve.format%5D,value%5Bwebp%5D&source=url%5Bhttps://prodimage.images-bn.com/pimages/9781501110368_p0_v11_s600x595.jpg%5D&scale=options%5Blimit%5D,size%5B300x10000%5D&sink=format%5Bwebp%5D")) { phase in
+                    if let image = phase.image {
+                        image.frame(width:300, height: 500)
+                        // Displays the loaded image.
+                    } else if phase.error != nil {
+                        Color.red // Indicates an error.
+                    } else {
+                        Color.blue // Acts as a placeholder.
+                    }
+                }
+                
             }
-            
-            
-            WifiResultView(wifiEnabled: $wifiEnabled1)
+            .pickerStyle(.wheel)
         }
-        .font(.largeTitle)
     }
-}
-
-struct WifiResultView: View{
-    // 외부에서 정해주는 거라 초기값이 있으면 안됨.
-    @Binding var wifiEnabled: Bool
     
-    var body: some View{
-        Image(systemName: wifiEnabled ? "wifi" : "wifi.slash")
-            .resizable()
-            .border(.black)
-            .frame(width: 100,height: 90)
-        Text(wifiEnabled ? "Wi-Fi turn on" : "Wi-Fi turn off")
-    }
+    
 }
 
 struct ContentView_Previews: PreviewProvider {
