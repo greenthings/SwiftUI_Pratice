@@ -9,53 +9,34 @@ import SwiftUI
 
 struct ContentView: View {
     
-    func sayHello(){
-        print("안녕하세요")
-    }
     var body: some View {
         VStack{
             
-            RadientView()
+            Text("매출")
+                .font(.title)
+                .padding()
             
-            HStack{
-               
-                RadientView().onAppear {
-                    print("Radient가 나타났습니다.")
-                }
-     
-                VStack{
-                    TitleView()
-                    NamesView()
+            HStack(alignment: .top){
+                Text("1분기 판매")
+                Spacer()
+                
+                VStack(alignment: .trailing, spacing: 15) {
+                    Text("1월")
+                    Text("2월")
+                    Text("3월")
                 }
                 
-                VStack {
-                    
-                    Button(action:{
-                        sayHello()
-                    }, label: {
-                        Image(systemName: "bolt")
-                    }).onAppear {
-                        print("나타났습니다.")
-                    }
-                    
-                    Spacer()
-                    
-                    Button("Buy Tesla"){
-                        sayHello()
-                    }
-                    
-                    Spacer()
-                    
-                    Button("Buy Tesla Action", action: sayHello)
-                    Spacer()
-                    RadientView()
-                        .scaledToFit()
+                Spacer()
+                VStack(alignment: .trailing, spacing: 15) {
+                    Text("$1,000,000")
+                    Text("$21,000,000")
+                    Text("$233,000,000")
                 }
+                
+                
             }
-            
-            
-            RadientView()
         }
+        .padding()
     }
 }
 
