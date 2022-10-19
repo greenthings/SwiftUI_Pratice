@@ -11,44 +11,31 @@ struct ContentView: View {
     
     var body: some View {
         VStack{
-            // Group도 Container라서 10개이내로 포함이 가능하다.
-            Group{
-                Text("Vstack Test1")
-                Text("Vstack Test2")
-                Text("Vstack Test3")
-                Text("Vstack Test4")
-                Text("Vstack Test5")
-                Text("Vstack Test6")
-                Text("Vstack Test7")
-                Text("Vstack Test8")
-                Text("Vstack Test9")
-                Text("Vstack Test0")
-                //Text("Vstack Test1")
-                //Text("Vstack Test2")
-            }
-            Group{
-                Text("Vstack Test1")
-                Text("Vstack Test2")
-                Text("Vstack Test3")
-                Text("Vstack Test4")
-                Text("Vstack Test5")
-                Text("Vstack Test6")
-                Text("Vstack Test7")
-                Text("Vstack Test8")
-                Text("Vstack Test9")
-                Text("Vstack Test0")
-                //Text("Vstack Test1")
-                //Text("Vstack Test2")
-            }
+            
+            Text("Hello World")
+                .font(.largeTitle)
+                .border(Color.black)
+            
+            Text("Hello World with frame")
+                .font(.largeTitle)
+                .frame(width: 200, height: 200, alignment: .center)
+                .border(Color.black)
+            
+            Text("Hello World with frame")
+                .font(.largeTitle)
+                .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight:.infinity,alignment: .center)
+                .border(Color.black)
+                
         }
-        .padding()
+        .edgesIgnoringSafeArea(.bottom)
+            
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
-            .previewDevice(PreviewDevice(rawValue: "iPhone 14 Pro"))    .previewDisplayName("IPhone 14 Pro")
+            .previewDevice(PreviewDevice(rawValue: "iPhone 14"))    .previewDisplayName("IPhone 14")
     }
 }
 
