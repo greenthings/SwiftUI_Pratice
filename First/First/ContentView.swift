@@ -9,32 +9,41 @@ import SwiftUI
 
 struct ContentView: View {
     
+    @State private var wifiEnabled1 = true
+    @State private var userName = ""
+    
     var body: some View {
-        VStack{
+        VStack(alignment: .center){
+       
+  
             
-            GeometryReader { geometry in
-                HStack(spacing: 0){
-                    Text("Hello World with frame1")
-                        .font(.largeTitle)
-                        .frame(width: geometry.size.width/2, height: geometry.size.height, alignment: .center)
-                        .border(Color.black)
-                    
-                    Text("Hello World with frame2")
-                        .font(.largeTitle)
-                        .frame(width: geometry.size.width/3, height: geometry.size.height, alignment: .center)
-                        .border(Color.black)
-                }
-                
-                
+            TextField("Input user name", text: $userName)
+            
+            Label(userName, systemImage: "6.circle")
+
+            Text(userName)
+            
+            Toggle(isOn: $wifiEnabled1) {
+                Text("Enabled Wifi")
             }
-      
             
-            Text("Hello World with frame")
-                .font(.largeTitle)
-                .frame(minWidth: 0, maxWidth: 200, minHeight: 0, maxHeight: 200,alignment: .center)
-                .border(Color.black)
-                
+            
+            WifiResultView(wifiEnabled: $wifiEnabled1)
         }
+        .font(.largeTitle)
+    }
+}
+
+struct WifiResultView: View{
+    // 외부에서 정해주는 거라 초기값이 있으면 안됨.
+    @Binding var wifiEnabled: Bool
+    
+    var body: some View{
+        Image(systemName: wifiEnabled ? "wifi" : "wifi.slash")
+            .resizable()
+            .border(.black)
+            .frame(width: 100,height: 90)
+        Text(wifiEnabled ? "Wi-Fi turn on" : "Wi-Fi turn off")
     }
 }
 
